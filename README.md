@@ -61,6 +61,29 @@ Access full parameters via **Edit > Preferences > Add-ons > Playblast Native X**
 
 ---
 
+## 🛠 FFmpeg Installation Guide
+
+If you don't have FFmpeg installed, choose one of the following methods:
+
+### Method 1: Using UniGetUI (Recommended for Windows)
+1. Download and install [UniGetUI](https://www.martincliment.com/programs/unigetui.html).
+2. Open UniGetUI and search for `ffmpeg`.
+3. Select `ffmpeg` (usually from the *Winget* or *Chocolatey* source) and click **Install**.
+4. **Restart Blender** after installation.
+
+### Method 2: Using Command Line (Winget)
+1. Open PowerShell or Command Prompt as Administrator.
+2. Run the following command:
+   ```powershell
+   winget install ffmpeg
+3. **Restart Blender**.
+
+### Method 3: Manual Installation
+1. Download the latest builds from ffmpeg.org.
+2. Extract the folder to a permanent location (e.g., C:\ffmpeg).
+3. Add the bin folder (e.g., C:\ffmpeg\bin) to your system's Environment Variables (PATH).
+4. Restart your computer.
+
 ## 💖 Support the Project
 
 If this add-on saves you time and improves your studio's animation review pipeline, consider supporting its ongoing development:
