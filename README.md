@@ -1,5 +1,7 @@
 # Playblast Native X 🎬
 
+[![Support via Patreon](https://img.shields.io/badge/Support%20via-Patreon-orange?style=for-the-badge&logo=patreon)](https://patreon.com/mevluc)
+
 **Playblast Native X** is a highly robust, professional viewport animation capture (playblast) add-on designed specifically to overcome **Blender 5.0+** API constraints. It provides seamless frame-by-frame rendering with exact audio synchronization, custom warm-up delays for complex character rigs, and a failsafe settings recovery system.
 
 ---
@@ -56,6 +58,14 @@ Access full parameters via **Edit > Preferences > Add-ons > Playblast Native X**
 
 * **Blender 5.0** or higher.
 * **FFmpeg:** Must be installed and accessible in your system's environment variables (`PATH`). If FFmpeg is missing, the add-on will report a `[WinError 2]` notification.
+
+---
+
+## 💖 Support the Project
+
+If this add-on saves you time and improves your studio's animation review pipeline, consider supporting its ongoing development:
+
+👉 **[Support on Patreon](https://patreon.com/mevluc)**
 
 ---
 
