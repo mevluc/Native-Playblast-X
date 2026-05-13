@@ -84,6 +84,8 @@ If you don't have FFmpeg installed, choose one of the following methods:
 3. Add the bin folder (e.g., C:\ffmpeg\bin) to your system's Environment Variables (PATH).
 4. Restart your computer.
 
+---
+
 ## 💖 Support the Project
 
 If this add-on saves you time and improves your studio's animation review pipeline, consider supporting its ongoing development:
