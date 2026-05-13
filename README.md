@@ -66,7 +66,7 @@ Access full parameters via **Edit > Preferences > Add-ons > Playblast Native X**
 If you don't have FFmpeg installed, choose one of the following methods:
 
 ### Method 1: Using UniGetUI (Recommended for Windows)
-1. Download and install [UniGetUI](https://www.martincliment.com/programs/unigetui.html).
+1. Download and install [UniGetUI](https://www.github.com/Devolutions/UniGetUI).
 2. Open UniGetUI and search for `ffmpeg`.
 3. Select `ffmpeg` (usually from the *Winget* or *Chocolatey* source) and click **Install**.
 4. **Restart Blender** after installation.
