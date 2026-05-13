@@ -18,7 +18,7 @@
 
 ## 📥 Installation
 
-1. Download the latest `__init__.py` file or package it into a `.zip`.
+1. Download the latest `.zip` file.
 2. Open Blender and navigate to **Edit > Preferences > Add-ons**.
 3. Click the drop-down menu in the top right and select **Install from Disk...**
 4. Select the downloaded file/zip and enable the checkbox for **Render: Playblast Native X**.
