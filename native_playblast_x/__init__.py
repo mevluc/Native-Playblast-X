@@ -1,10 +1,10 @@
 bl_info = {
     "name": "Playblast Native X",
     "author": "mevluc",
-    "version": (3, 4),
+    "version": (3, 5),
     "blender": (5, 0, 0),
     "location": "View3D > Header",
-    "description": "ESC Safe Playblast with automatic Media Type/Format switching, Warm-up, and audio sync.",
+    "description": "ESC Safe Playblast with automatic Media Type/Format switching, Warm-up, and precise audio sync.",
     "category": "Render",
 }
 
@@ -167,7 +167,6 @@ class PLAYBLAST_X_OT_execute(Operator):
         prefs = context.preferences.addons[__name__].preferences
         scene = context.scene
         
-        # --- GÜÇLENDİRİLMİŞ ESC KONTROLÜ ---
         if event.type == 'ESC': 
             self.report({'INFO'}, "Playblast Cancelled by User")
             self.cleanup(context)
@@ -210,6 +209,10 @@ class PLAYBLAST_X_OT_execute(Operator):
         final_video = os.path.join(self._base_dir, self._file_name + ".mp4")
         fps = scene.render.fps / scene.render.fps_base
         
+        # Videonun tam karesel süresini saniye olarak hesapla
+        duration_frames = self._end_frame - self._start_frame + 1
+        duration_sec = duration_frames / fps
+        
         audio_file = None
         if prefs.include_audio:
             audio_path = os.path.join(self._frames_dir, "temp_audio.wav")
@@ -217,11 +220,25 @@ class PLAYBLAST_X_OT_execute(Operator):
             if os.path.exists(audio_path): audio_file = audio_path
 
         cmd = ["ffmpeg", "-y", "-framerate", str(fps), "-start_number", str(self._start_frame), "-i", os.path.join(self._frames_dir, "frame_%04d.png")]
+        
         if audio_file:
-            offset = max(0.0, (self._start_frame - 1) / fps)
-            cmd.extend(["-ss", f"{offset:.4f}", "-i", audio_file])
+            # Ses dosyasının başlangıcı ile bizim renderın başlangıcı arasındaki fark
+            offset_frames = self._start_frame - scene.frame_start
+            offset_sec = max(0.0, offset_frames / fps)
+            
+            if offset_sec > 0:
+                cmd.extend(["-ss", f"{offset_sec:.4f}"])
+            
+            cmd.extend(["-i", audio_file])
+            
         cmd.extend(["-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18"])
-        if audio_file: cmd.extend(["-c:a", "aac", "-b:a", "192k", "-shortest"])
+        
+        if audio_file:
+            cmd.extend(["-c:a", "aac", "-b:a", "192k"])
+            # -shortest parametresi risk yarattığı için kaldırıldı.
+            
+        # Çıktı videosunun süresini tam render alınan aralık kadar zorla (Donmaları ve kesilmeleri önler)
+        cmd.extend(["-t", f"{duration_sec:.4f}"])
         cmd.append(final_video)
         
         try:
@@ -264,7 +281,6 @@ class PLAYBLAST_X_OT_execute(Operator):
                 if 'shading_type' in self._original_settings:
                     self._area.spaces[0].shading.type = self._original_settings['shading_type']
         
-        # Garantili Temp Silme
         if self._frames_dir and os.path.exists(self._frames_dir):
             try: shutil.rmtree(self._frames_dir)
             except: pass
